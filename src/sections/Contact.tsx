@@ -1,117 +1,120 @@
+import Reveal from '@/components/site/Reveal';
+import SectionIntro from '@/components/site/SectionIntro';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
-import { MapPin, Mail, Clock } from 'lucide-react';
+import { Textarea } from '@/components/ui/textarea';
+import { CalendarDays, Mail, MapPin, MessageSquareText } from 'lucide-react';
+
+const contactItems = [
+  {
+    icon: Mail,
+    title: 'Email',
+    detail: 'hello@techionyx.com',
+    caption: 'For project discussions and partnership inquiries',
+  },
+  {
+    icon: CalendarDays,
+    title: 'Response window',
+    detail: 'Within 1 business day',
+    caption: 'Typically faster for active opportunities',
+  },
+  {
+    icon: MapPin,
+    title: 'Engagement footprint',
+    detail: 'Remote-first, globally collaborative',
+    caption: 'Structured delivery across time zones',
+  },
+];
 
 const Contact = () => {
-  const contactInfo = [
-    {
-      icon: MapPin,
-      title: 'Address',
-      details: ['123 Business Street', 'New York, NY 10001'],
-    },
-    // {
-    //   icon: Phone,
-    //   title: 'Phone',
-    //   details: ['+1 (555) 123-4567', '+1 (555) 987-6543'],
-    // },
-    {
-      icon: Mail,
-      title: 'Email',
-      details: ['info@yourcompany.com', 'support@yourcompany.com'],
-    },
-    {
-      icon: Clock,
-      title: 'Working Hours',
-      details: ['Mon - Fri: 9AM - 6PM', 'Sat: 10AM - 4PM'],
-    },
-  ];
-
   return (
-    <section id="contact" className="py-20 md:py-32">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <div className="inline-flex items-center px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-4">
-            Contact Us
-          </div>
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-            Get in Touch With Us
-          </h2>
-          <p className="text-gray-600 text-lg">
-            Have a project in mind? We&apos;d love to hear from you. Send us a message
-            and we&apos;ll respond as soon as possible.
-          </p>
-        </div>
+    <section id="contact" className="section-padding relative overflow-hidden bg-slate-950">
+      <div className="absolute inset-0 grid-overlay opacity-10" aria-hidden="true" />
+      <div className="shell relative">
+        <div className="grid gap-8 xl:grid-cols-[0.92fr_1.08fr]">
+          <div className="space-y-8">
+            <SectionIntro
+              eyebrow="Contact"
+              title="Ready to build with a partner who understands product, systems, and delivery discipline?"
+              description="Tell us what you are building, modernizing, or integrating. We will respond with a clear next-step recommendation and the right engagement path for your stage."
+              invert
+            />
 
-        <div className="grid lg:grid-cols-3 gap-8">
-          {/* Contact Info */}
-          <div className="lg:col-span-1 space-y-6">
-            {contactInfo.map((info, index) => (
-              <Card key={index} className="border-0 shadow-md">
-                <CardContent className="p-6 flex items-start gap-4">
-                  <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
-                    <info.icon className="w-5 h-5 text-primary" />
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-gray-900 mb-1">{info.title}</h3>
-                    {info.details.map((detail, i) => (
-                      <p key={i} className="text-gray-600 text-sm">{detail}</p>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
+            <div className="grid gap-4">
+              {contactItems.map((item, index) => (
+                <Reveal key={item.title} delay={index * 80}>
+                  <article className="panel-dark flex items-start gap-4 p-5 sm:p-6">
+                    <div className="flex size-12 items-center justify-center rounded-2xl bg-white/10 text-sky-300">
+                      <item.icon className="size-5" />
+                    </div>
+                    <div>
+                      <p className="font-semibold text-white">{item.title}</p>
+                      <p className="mt-1 text-sm text-slate-100">{item.detail}</p>
+                      <p className="mt-2 text-sm leading-6 text-slate-400">{item.caption}</p>
+                    </div>
+                  </article>
+                </Reveal>
+              ))}
+            </div>
           </div>
 
-          {/* Contact Form */}
-          <Card className="lg:col-span-2 border-0 shadow-lg">
-            <CardContent className="p-8">
-              <form className="space-y-6">
-                <div className="grid md:grid-cols-2 gap-6">
+          <Reveal delay={120} direction="right">
+            <div className="panel overflow-hidden p-6 sm:p-8">
+              <div className="flex items-center gap-3 border-b border-slate-100 pb-5">
+                <div className="flex size-11 items-center justify-center rounded-2xl bg-sky-50 text-sky-600">
+                  <MessageSquareText className="size-5" />
+                </div>
+                <div>
+                  <h3 className="text-2xl font-semibold text-slate-950">Start the conversation</h3>
+                  <p className="text-sm text-slate-500">Share the essentials and we will take it from there.</p>
+                </div>
+              </div>
+
+              <form className="mt-6 space-y-5">
+                <div className="grid gap-5 md:grid-cols-2">
                   <div className="space-y-2">
-                    <Label htmlFor="firstName">First Name</Label>
-                    <Input id="firstName" placeholder="John" />
+                    <Label htmlFor="name">Name</Label>
+                    <Input id="name" placeholder="Jane Smith" className="h-12 rounded-2xl border-slate-200 bg-white" />
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="lastName">Last Name</Label>
-                    <Input id="lastName" placeholder="Doe" />
+                    <Label htmlFor="company">Company</Label>
+                    <Input id="company" placeholder="Your organization" className="h-12 rounded-2xl border-slate-200 bg-white" />
                   </div>
                 </div>
 
-                <div className="grid md:grid-cols-2 gap-6">
+                <div className="grid gap-5 md:grid-cols-2">
                   <div className="space-y-2">
-                    <Label htmlFor="email">Email</Label>
-                    <Input id="email" type="email" placeholder="john@example.com" />
+                    <Label htmlFor="email">Work email</Label>
+                    <Input id="email" type="email" placeholder="jane@company.com" className="h-12 rounded-2xl border-slate-200 bg-white" />
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="phone">Phone</Label>
-                    <Input id="phone" type="tel" placeholder="+1 (555) 000-0000" />
+                    <Label htmlFor="timeline">Project timeline</Label>
+                    <Input id="timeline" placeholder="e.g. 6-8 weeks" className="h-12 rounded-2xl border-slate-200 bg-white" />
                   </div>
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="subject">Subject</Label>
-                  <Input id="subject" placeholder="How can we help?" />
-                </div>
-
-                <div className="space-y-2">
-                  <Label htmlFor="message">Message</Label>
+                  <Label htmlFor="scope">What are you looking to build or improve?</Label>
                   <Textarea
-                    id="message"
-                    placeholder="Tell us about your project..."
-                    rows={5}
+                    id="scope"
+                    rows={6}
+                    placeholder="Share your product, system, integration, or modernization goals."
+                    className="rounded-[24px] border-slate-200 bg-white"
                   />
                 </div>
 
-                <Button type="submit" size="lg" className="w-full">
-                  Send Message
-                </Button>
+                <div className="flex flex-col gap-4 border-t border-slate-100 pt-5 sm:flex-row sm:items-center sm:justify-between">
+                  <p className="max-w-md text-sm leading-6 text-slate-500">
+                    By reaching out, you are starting a no-pressure discovery conversation focused on fit, scope, and next steps.
+                  </p>
+                  <Button className="h-12 rounded-full bg-slate-950 px-6 text-white hover:-translate-y-0.5 hover:bg-slate-900">
+                    Send project brief
+                  </Button>
+                </div>
               </form>
-            </CardContent>
-          </Card>
+            </div>
+          </Reveal>
         </div>
       </div>
     </section>

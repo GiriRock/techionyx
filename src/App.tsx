@@ -1,20 +1,26 @@
-import Navigation from './sections/Navigation';
-import Hero from './sections/Hero';
 import About from './sections/About';
-import Services from './sections/Services';
-import Team from './sections/Team';
 import Contact from './sections/Contact';
+import Expertise from './sections/Expertise';
 import Footer from './sections/Footer';
+import Hero from './sections/Hero';
+import Navigation from './sections/Navigation';
+import Process from './sections/Process';
+import Results from './sections/Results';
+import Services from './sections/Services';
+import WhyChooseUs from './sections/WhyChooseUs';
 
 function App() {
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-background text-foreground">
       <Navigation />
       <main>
         <Hero />
         <About />
         <Services />
-        <Team />
+        <WhyChooseUs />
+        <Process />
+        <Expertise />
+        <Results />
         <Contact />
       </main>
       <Footer />
