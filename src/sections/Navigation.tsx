@@ -20,6 +20,11 @@ const Navigation = () => {
   const lastScrollY = useRef(0);
   const [isHidden, setIsHidden] = useState(false);
 
+  // We assume the Home page has a dark hero at the top.
+  // Other pages might have light tops, so we immediately apply the frosted theme.
+  const isHome = location.pathname === '/';
+  const useFrostedTheme = isScrolled || !isHome;
+
   useEffect(() => {
     const onScroll = () => {
       const current = window.scrollY;
@@ -99,20 +104,20 @@ const Navigation = () => {
       <nav
         className={cn(
           'mx-auto flex max-w-[1400px] items-center justify-between rounded-[2rem] px-5 py-4 transition-all duration-500 sm:px-8',
-          isScrolled ? 'border border-corporate-200/50 bg-white/80 shadow-premium backdrop-blur-xl' : 'border border-transparent bg-transparent'
+          useFrostedTheme ? 'border border-corporate-200/50 bg-white/80 shadow-premium backdrop-blur-xl' : 'border border-transparent bg-transparent'
         )}
         aria-label="Primary"
       >
         <Link to="/" className="focus-ring flex items-center gap-4 rounded-xl">
           <span className={cn(
             "flex size-11 items-center justify-center rounded-xl font-bold text-white shadow-premium transition-all duration-300",
-            isScrolled ? "bg-brand-600" : "bg-white/10 backdrop-blur-md border border-white/20"
+            useFrostedTheme ? "bg-brand-600" : "bg-white/10 backdrop-blur-md border border-white/20"
           )}>
             Tx
           </span>
           <span className="hidden sm:block">
-            <span className={cn('block text-base font-bold tracking-tight', isScrolled ? 'text-corporate-900' : 'text-white')}>Techionyx</span>
-            <span className={cn('block text-xs font-medium', isScrolled ? 'text-corporate-500' : 'text-corporate-100/80')}>Enterprise Solutions</span>
+            <span className={cn('block text-base font-bold tracking-tight', useFrostedTheme ? 'text-corporate-900' : 'text-white')}>Techionyx</span>
+            <span className={cn('block text-xs font-medium', useFrostedTheme ? 'text-corporate-500' : 'text-corporate-100/80')}>Enterprise Solutions</span>
           </span>
         </Link>
 
@@ -125,10 +130,10 @@ const Navigation = () => {
                 cn(
                   'focus-ring rounded-full px-4 py-2 text-sm font-semibold transition-all duration-300',
                   isActive
-                    ? isScrolled
+                    ? useFrostedTheme
                       ? 'bg-corporate-900 text-white shadow-md'
                       : 'bg-white/20 text-white backdrop-blur-md'
-                    : isScrolled
+                    : useFrostedTheme
                       ? 'text-corporate-600 hover:bg-corporate-50 hover:text-corporate-900'
                       : 'text-corporate-100 hover:bg-white/10 hover:text-white'
                 )
@@ -145,10 +150,10 @@ const Navigation = () => {
                 className={cn(
                   'focus-ring rounded-full px-4 py-2 text-sm font-semibold transition-all duration-300',
                   isQuickLinkActive(item.to)
-                    ? isScrolled
+                    ? useFrostedTheme
                       ? 'bg-brand-50 text-brand-700'
                       : 'bg-white/15 text-white'
-                    : isScrolled
+                    : useFrostedTheme
                       ? 'text-corporate-600 hover:bg-corporate-50 hover:text-corporate-900'
                       : 'text-corporate-200 hover:bg-white/10 hover:text-white'
                 )}
@@ -160,12 +165,12 @@ const Navigation = () => {
         </div>
 
         <div className="hidden items-center gap-4 xl:flex">
-          <a href="mailto:hello@techionyx.com" className={cn('focus-ring text-sm font-semibold transition-colors duration-300', isScrolled ? 'text-corporate-600 hover:text-corporate-900' : 'text-corporate-200 hover:text-white')}>
+          <a href="mailto:hello@techionyx.com" className={cn('focus-ring text-sm font-semibold transition-colors duration-300', useFrostedTheme ? 'text-corporate-600 hover:text-corporate-900' : 'text-corporate-200 hover:text-white')}>
             hello@techionyx.com
           </a>
           <Link to="/contact" className={cn(
             "focus-ring rounded-xl px-6 py-2.5 text-sm font-bold transition-all duration-300",
-            isScrolled ? "bg-corporate-900 text-white hover:bg-corporate-800 shadow-premium hover:shadow-premium-lg hover:-translate-y-0.5" : "bg-white text-corporate-900 hover:bg-corporate-50 shadow-premium"
+            useFrostedTheme ? "bg-corporate-900 text-white hover:bg-corporate-800 shadow-premium hover:shadow-premium-lg hover:-translate-y-0.5" : "bg-white text-corporate-900 hover:bg-corporate-50 shadow-premium"
           )}>
             Let's Talk
           </Link>
@@ -173,7 +178,7 @@ const Navigation = () => {
 
         <button
           type="button"
-          className={cn('focus-ring inline-flex size-12 items-center justify-center rounded-xl border xl:hidden transition-all duration-300', isScrolled ? 'border-corporate-200 bg-white text-corporate-900 shadow-sm' : 'border-white/20 bg-white/10 text-white backdrop-blur-md')}
+          className={cn('focus-ring inline-flex size-12 items-center justify-center rounded-xl border xl:hidden transition-all duration-300', useFrostedTheme ? 'border-corporate-200 bg-white text-corporate-900 shadow-sm' : 'border-white/20 bg-white/10 text-white backdrop-blur-md')}
           aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
           aria-expanded={isMobileMenuOpen}
           aria-controls="mobile-navigation"
