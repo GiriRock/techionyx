@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import CTASection from '@/components/site/CTASection';
 import PageHero from '@/components/site/PageHero';
 import PageSection from '@/components/site/PageSection';
-import Reveal from '@/components/site/Reveal';
+import { StaggerContainer, StaggerItem } from '@/components/ui/StaggerContainer';
 import EnterpriseCard from '@/components/site/home/EnterpriseCard';
 import SectionHeading from '@/components/site/home/SectionHeading';
 import { serviceDetails } from '@/content/site';
@@ -19,8 +19,9 @@ const ServicesPage = () => {
         tone="dark"
       />
 
-      <PageSection>
-        <div className="shell">
+      <PageSection className="relative bg-white overflow-hidden">
+        <div className="absolute inset-0 grid-bg-light opacity-60" aria-hidden="true" />
+        <div className="shell relative z-10">
           <SectionHeading
             eyebrow="Service Lines"
             title="Consultative engineering delivery across product, platform, and operations."
@@ -28,23 +29,23 @@ const ServicesPage = () => {
             align="center"
           />
 
-          <div className="mt-12 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
-            {serviceDetails.map((service, index) => (
-              <Reveal key={service.slug} delay={index * 80}>
+          <StaggerContainer className="mt-16 grid gap-8 md:grid-cols-2 xl:grid-cols-3" staggerDelay={0.1}>
+            {serviceDetails.map((service) => (
+              <StaggerItem key={service.slug} className="h-full flex flex-col">
                 <EnterpriseCard
                   icon={service.icon}
                   title={service.title}
                   description={service.description}
                   bullets={service.highlights}
-                  className="h-full"
+                  className="flex-1"
                 />
-                <Link to={`/services/${service.slug}`} className="focus-ring mt-4 inline-flex items-center gap-2 text-sm font-semibold text-cyan-700 transition hover:text-cyan-900">
+                <Link to={`/services/${service.slug}`} className="focus-ring mt-6 inline-flex items-center gap-2 text-sm font-bold text-brand-600 transition-colors hover:text-brand-700">
                   View service detail
                   <ArrowUpRight className="size-4" />
                 </Link>
-              </Reveal>
+              </StaggerItem>
             ))}
-          </div>
+          </StaggerContainer>
         </div>
       </PageSection>
 

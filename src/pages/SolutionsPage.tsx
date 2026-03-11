@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import CTASection from '@/components/site/CTASection';
 import PageHero from '@/components/site/PageHero';
 import PageSection from '@/components/site/PageSection';
-import Reveal from '@/components/site/Reveal';
+import { StaggerContainer, StaggerItem } from '@/components/ui/StaggerContainer';
 import EnterpriseCard from '@/components/site/home/EnterpriseCard';
 import SectionHeading from '@/components/site/home/SectionHeading';
 import { industries, solutionDetails } from '@/content/site';
@@ -16,10 +16,12 @@ const SolutionsPage = () => {
         eyebrow="Enterprise Solutions"
         title="Industry-aware solution delivery for complex transformation programs."
         description="We shape solutions around operational reality: users, systems, governance requirements, and measurable commercial outcomes."
+        tone="dark"
       />
 
-      <PageSection>
-        <div className="shell">
+      <PageSection className="relative bg-white overflow-hidden">
+        <div className="absolute inset-0 grid-bg-light opacity-60" aria-hidden="true" />
+        <div className="shell relative z-10">
           <SectionHeading
             eyebrow="Solution Areas"
             title="Strategic solution models grounded in real business operations."
@@ -27,28 +29,29 @@ const SolutionsPage = () => {
             align="center"
           />
 
-          <div className="mt-12 grid gap-5 lg:grid-cols-3">
-            {solutionDetails.map((solution, index) => (
-              <Reveal key={solution.slug} delay={index * 85}>
+          <StaggerContainer className="mt-16 grid gap-8 lg:grid-cols-3" staggerDelay={0.1}>
+            {solutionDetails.map((solution) => (
+              <StaggerItem key={solution.slug} className="h-full flex flex-col">
                 <EnterpriseCard
                   icon={solution.icon}
                   title={solution.title}
                   description={solution.description}
                   bullets={solution.highlights}
-                  className="h-full"
+                  className="flex-1"
                 />
-                <Link to={`/solutions/${solution.slug}`} className="focus-ring mt-4 inline-flex items-center gap-2 text-sm font-semibold text-cyan-700 transition hover:text-cyan-900">
+                <Link to={`/solutions/${solution.slug}`} className="focus-ring mt-6 inline-flex items-center gap-2 text-sm font-bold text-brand-600 transition-colors hover:text-brand-700">
                   View solution detail
                   <ArrowUpRight className="size-4" />
                 </Link>
-              </Reveal>
+              </StaggerItem>
             ))}
-          </div>
+          </StaggerContainer>
         </div>
       </PageSection>
 
-      <PageSection className="bg-white/50">
-        <div id="industries" className="shell">
+      <PageSection className="bg-corporate-50 relative border-y border-corporate-200/50">
+        <div className="absolute inset-0 grid-bg-light opacity-40 mix-blend-overlay" aria-hidden="true" />
+        <div id="industries" className="shell relative z-10">
           <SectionHeading
             eyebrow="Industries"
             title="Delivery expertise across sectors where process trust and scale are essential."
@@ -56,13 +59,13 @@ const SolutionsPage = () => {
             align="center"
           />
 
-          <div className="mt-12 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
-            {industries.map((industry, index) => (
-              <Reveal key={industry.title} delay={index * 80}>
+          <StaggerContainer className="mt-16 grid gap-8 md:grid-cols-2 xl:grid-cols-4" staggerDelay={0.1}>
+            {industries.map((industry) => (
+              <StaggerItem key={industry.title} className="h-full">
                 <EnterpriseCard icon={industry.icon} title={industry.title} description={industry.description} className="h-full" />
-              </Reveal>
+              </StaggerItem>
             ))}
-          </div>
+          </StaggerContainer>
         </div>
       </PageSection>
 

@@ -1,6 +1,5 @@
 import { cn } from '@/lib/utils';
-
-import Reveal from './Reveal';
+import { ScrollReveal } from '@/components/ui/ScrollReveal';
 
 type SectionIntroProps = {
   eyebrow: string;
@@ -20,20 +19,20 @@ const SectionIntro = ({
   const centered = align === 'center';
 
   return (
-    <Reveal className={cn('space-y-5', centered && 'mx-auto text-center')}>
-      <span className={invert ? 'section-eyebrow' : 'section-eyebrow-light'}>{eyebrow}</span>
-      <div className={cn('space-y-4', centered && 'mx-auto max-w-3xl')}>
-        <h2 className={invert ? 'section-title-dark' : 'section-title'}>{title}</h2>
+    <ScrollReveal>
+      <header className={cn('space-y-6', centered && 'mx-auto max-w-3xl text-center')}>
+        <span className={invert ? 'section-eyebrow' : 'section-eyebrow-dark'}>{eyebrow}</span>
+        <h2 className={invert ? 'section-title' : 'section-title-dark'}>{title}</h2>
         <p
           className={cn(
-            invert ? 'section-copy text-slate-300' : 'section-copy',
-            centered && 'mx-auto'
+            invert ? 'section-copy' : 'section-copy-dark',
+            centered && 'mx-auto max-w-2xl'
           )}
         >
           {description}
         </p>
-      </div>
-    </Reveal>
+      </header>
+    </ScrollReveal>
   );
 };
 

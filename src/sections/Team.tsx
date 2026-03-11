@@ -1,5 +1,6 @@
-import { Card, CardContent } from '@/components/ui/card';
 import { Linkedin, Twitter, Mail } from 'lucide-react';
+import SectionHeading from '@/components/site/home/SectionHeading';
+import { StaggerContainer, StaggerItem } from '@/components/ui/StaggerContainer';
 
 const Team = () => {
   const teamMembers = [
@@ -30,54 +31,51 @@ const Team = () => {
   ];
 
   return (
-    <section id="team" className="py-20 md:py-32 bg-gray-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <div className="inline-flex items-center px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-4">
-            Our Team
-          </div>
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-            Meet the Experts Behind Our Success
-          </h2>
-          <p className="text-gray-600 text-lg">
-            Our diverse team of professionals brings together expertise from various
-            fields to deliver exceptional results.
-          </p>
-        </div>
+    <section id="team" className="section-padding bg-corporate-50 relative border-t border-corporate-200/50">
+      <div className="absolute inset-0 grid-bg-light opacity-60" aria-hidden="true" />
 
-        {/* Team Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {teamMembers.map((member, index) => (
-            <Card key={index} className="group overflow-hidden border-0 shadow-lg">
-              <div className="relative overflow-hidden">
-                <img
-                  src={member.image}
-                  alt={member.name}
-                  className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <div className="absolute bottom-4 left-4 right-4 flex justify-center gap-4">
-                    <a href="#" className="w-10 h-10 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-white hover:text-primary transition-colors">
-                      <Linkedin className="w-5 h-5" />
+      <div className="shell relative z-10">
+        <SectionHeading
+          eyebrow="Our Team"
+          title="Meet the Experts Behind Our Success"
+          description="Our diverse leadership team brings together expertise from various fields to deliver exceptional operational execution."
+          align="center"
+        />
+
+        <StaggerContainer className="mt-16 grid gap-8 sm:grid-cols-2 lg:grid-cols-4" staggerDelay={0.1}>
+          {teamMembers.map((member) => (
+            <StaggerItem key={member.name} className="h-full">
+              <div className="premium-card h-full overflow-hidden p-0 group flex flex-col">
+                <div className="relative overflow-hidden aspect-[4/5] sm:aspect-square lg:aspect-[4/5]">
+                  <img
+                    src={member.image}
+                    alt={member.name}
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-corporate-950/80 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+
+                  <div className="absolute bottom-4 left-0 right-0 flex justify-center gap-3 translate-y-4 opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100">
+                    <a href="#" className="flex size-10 items-center justify-center rounded-full bg-white/20 text-white backdrop-blur-md transition-all hover:bg-white hover:text-brand-600">
+                      <Linkedin className="size-4" />
                     </a>
-                    <a href="#" className="w-10 h-10 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-white hover:text-primary transition-colors">
-                      <Twitter className="w-5 h-5" />
+                    <a href="#" className="flex size-10 items-center justify-center rounded-full bg-white/20 text-white backdrop-blur-md transition-all hover:bg-white hover:text-brand-600">
+                      <Twitter className="size-4" />
                     </a>
-                    <a href="#" className="w-10 h-10 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-white hover:text-primary transition-colors">
-                      <Mail className="w-5 h-5" />
+                    <a href="#" className="flex size-10 items-center justify-center rounded-full bg-white/20 text-white backdrop-blur-md transition-all hover:bg-white hover:text-brand-600">
+                      <Mail className="size-4" />
                     </a>
                   </div>
                 </div>
+
+                <div className="p-6 text-center flex-1 flex flex-col">
+                  <h3 className="text-lg font-bold text-corporate-950">{member.name}</h3>
+                  <p className="mt-1 text-sm font-semibold text-brand-600 uppercase tracking-wider">{member.role}</p>
+                  <p className="mt-4 text-sm leading-relaxed text-corporate-600 line-clamp-3">{member.bio}</p>
+                </div>
               </div>
-              <CardContent className="p-6 text-center">
-                <h3 className="font-bold text-lg text-gray-900">{member.name}</h3>
-                <p className="text-primary font-medium text-sm mb-2">{member.role}</p>
-                <p className="text-gray-600 text-sm">{member.bio}</p>
-              </CardContent>
-            </Card>
+            </StaggerItem>
           ))}
-        </div>
+        </StaggerContainer>
       </div>
     </section>
   );

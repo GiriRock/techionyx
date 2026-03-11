@@ -1,6 +1,7 @@
-import Reveal from '@/components/site/Reveal';
 import { ArrowUpRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
+
+import { ScrollReveal } from '@/components/ui/ScrollReveal';
 
 type CTASectionProps = {
   title: string;
@@ -20,34 +21,41 @@ const CTASection = ({
   secondaryTo = '/services',
 }: CTASectionProps) => {
   return (
-    <section className="section-padding pt-0">
-      <div className="shell">
-        <Reveal>
-          <div className="relative overflow-hidden rounded-[2rem] border border-cyan-100 bg-[linear-gradient(135deg,#0a2940_0%,#10405f_55%,#15618a_100%)] p-8 text-white shadow-[0_30px_95px_rgba(3,36,57,0.34)] sm:p-10 lg:p-12">
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_0%_0%,rgba(103,232,249,0.24),transparent_28%),radial-gradient(circle_at_100%_100%,rgba(14,165,233,0.2),transparent_30%)]" aria-hidden="true" />
-            <div className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
-              <div className="relative">
+    <section className="section-padding bg-corporate-50 relative">
+      <div className="absolute inset-0 grid-bg-light opacity-60" aria-hidden="true" />
+
+      <div className="shell relative z-10">
+        <ScrollReveal>
+          <div className="relative overflow-hidden rounded-[2.5rem] bg-corporate-900 px-6 py-16 sm:px-16 sm:py-20 lg:p-24 shadow-brand-500/10 shadow-2xl">
+            <div className="absolute inset-0 b2b-gradient-dark mix-blend-multiply" aria-hidden="true" />
+            <div className="absolute inset-0 grid-bg-dark opacity-40 mix-blend-overlay" aria-hidden="true" />
+
+            <div className="absolute -top-24 -right-24 w-96 h-96 bg-brand-500/20 rounded-full blur-[100px] pointer-events-none" />
+            <div className="absolute -bottom-24 -left-24 w-96 h-96 bg-blue-500/20 rounded-full blur-[100px] pointer-events-none" />
+
+            <div className="relative grid gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
+              <div>
                 <span className="section-eyebrow-dark">Start a conversation</span>
-                <h2 className="mt-5 max-w-3xl text-balance text-3xl font-semibold text-white md:text-4xl">
+                <h2 className="mt-6 max-w-3xl text-balance text-4xl font-bold tracking-tight text-white md:text-5xl">
                   {title}
                 </h2>
-                <p className="mt-4 max-w-2xl text-base leading-8 text-cyan-50 md:text-lg">{description}</p>
+                <p className="mt-6 max-w-2xl text-lg leading-relaxed text-corporate-300 md:text-xl">{description}</p>
               </div>
-              <div className="relative flex flex-col gap-4 sm:flex-row lg:justify-end">
-                <Link to={primaryTo} className="focus-ring inline-flex h-12 items-center justify-center gap-2 rounded-full bg-white px-6 text-sm font-semibold text-slate-950 transition hover:-translate-y-0.5">
+              <div className="flex flex-col gap-4 sm:flex-row lg:justify-end">
+                <Link to={primaryTo} className="focus-ring btn-primary px-8 py-4 text-base shadow-brand-500/25 justify-center">
                   {primaryLabel}
-                  <ArrowUpRight className="size-4" />
+                  <ArrowUpRight className="ml-2 size-5" />
                 </Link>
                 <Link
                   to={secondaryTo}
-                  className="focus-ring inline-flex h-12 items-center justify-center rounded-full border border-white/30 bg-white/10 px-6 text-sm font-semibold text-white transition hover:bg-white/18"
+                  className="focus-ring btn-secondary-dark px-8 py-4 text-base justify-center"
                 >
                   {secondaryLabel}
                 </Link>
               </div>
             </div>
           </div>
-        </Reveal>
+        </ScrollReveal>
       </div>
     </section>
   );
