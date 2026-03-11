@@ -17,7 +17,7 @@ export const ScrollReveal = ({
     children,
     direction = 'up',
     delay = 0,
-    duration = 0.6,
+    duration = 0.5,
     className = '',
     once = true,
 }: ScrollRevealProps) => {
@@ -27,15 +27,15 @@ export const ScrollReveal = ({
     const getAxisOffset = (dir: Direction) => {
         switch (dir) {
             case 'up':
-                return { y: 40, x: 0 };
+                return { y: 20, x: 0 };
             case 'down':
-                return { y: -40, x: 0 };
+                return { y: -20, x: 0 };
             case 'left':
-                return { x: 40, y: 0 };
+                return { x: 20, y: 0 };
             case 'right':
-                return { x: -40, y: 0 };
+                return { x: -20, y: 0 };
             default:
-                return { y: 40, x: 0 };
+                return { y: 20, x: 0 };
         }
     };
 
@@ -54,7 +54,7 @@ export const ScrollReveal = ({
             transition: {
                 duration,
                 delay,
-                ease: [0.25, 0.1, 0.25, 1], // Custom cubic-bezier for a polished feel
+                ease: [0.22, 1, 0.36, 1], // Crisp, fast-out slow-in curve
             },
         },
     };

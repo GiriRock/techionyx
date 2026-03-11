@@ -13,7 +13,7 @@ interface StaggerContainerProps {
 export const StaggerContainer = ({
     children,
     className = '',
-    staggerDelay = 0.1,
+    staggerDelay = 0.08,
     delayChildren = 0,
     once = true,
 }: StaggerContainerProps) => {
@@ -46,13 +46,13 @@ export const StaggerContainer = ({
 
 export const StaggerItem = ({ children, className = '' }: { children: React.ReactNode; className?: string }) => {
     const itemVariants: Variants = {
-        hidden: { opacity: 0, y: 20 },
+        hidden: { opacity: 0, y: 15 },
         visible: {
             opacity: 1,
             y: 0,
             transition: {
-                duration: 0.5,
-                ease: [0.25, 0.1, 0.25, 1],
+                duration: 0.4,
+                ease: [0.22, 1, 0.36, 1], // Crisp, fast-out slow-in curve
             },
         },
     };

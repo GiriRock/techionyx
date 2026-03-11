@@ -15,8 +15,8 @@ const CompanyPage = () => {
         description="Techionyx operates at the intersection of product innovation, software engineering services, and strategic consulting so organizations can modernize with execution certainty."
         tone="dark"
         aside={
-          <div className="premium-card p-6 sm:p-8">
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-brand-300">Core intent</p>
+          <div className="premium-card-dark p-6 sm:p-8">
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-brand-500">Core intent</p>
             <ul className="mt-4 space-y-3 text-sm leading-7 text-corporate-200 sm:text-base">
               <li>Align technology investment to measurable business outcomes.</li>
               <li>Build resilient systems that scale with operational complexity.</li>
