@@ -1,56 +1,34 @@
-import Reveal from '@/components/site/Reveal';
-import SectionIntro from '@/components/site/SectionIntro';
-
-const phases = [
-  {
-    step: '01',
-    title: 'Discover and align',
-    description: 'Clarify goals, constraints, integration realities, and the delivery path that creates the fastest confidence.',
-  },
-  {
-    step: '02',
-    title: 'Design the right system',
-    description: 'Shape user flows, architecture, and implementation scope around quality, speed, and maintainability.',
-  },
-  {
-    step: '03',
-    title: 'Ship in focused increments',
-    description: 'Move through weekly progress with transparent checkpoints, testable outcomes, and crisp communication.',
-  },
-  {
-    step: '04',
-    title: 'Stabilize and evolve',
-    description: 'Support rollout, harden the platform, and create the operational runway for the next stage of growth.',
-  },
-];
+import SectionHeading from '@/components/site/home/SectionHeading';
+import { StaggerContainer, StaggerItem } from '@/components/ui/StaggerContainer';
+import { processSteps } from '@/content/home';
 
 const Process = () => {
   return (
-    <section id="process" className="section-padding">
-      <div className="shell">
-        <SectionIntro
-          eyebrow="Process"
-          title="A disciplined delivery model that keeps momentum high and surprises low."
-          description="Our engagement structure is intentionally simple: align quickly, make strong product and technical decisions, ship in controlled increments, and keep stakeholders informed without slowing delivery down."
+    <section id="process" className="section-padding bg-corporate-50 relative overflow-hidden">
+      <div className="absolute inset-0 grid-bg-light opacity-60" aria-hidden="true" />
+
+      <div className="shell relative z-10">
+        <SectionHeading
+          eyebrow="Delivery Process"
+          title="A structured lifecycle for enterprise transformation programs."
+          description="Each engagement follows a transparent process designed to align stakeholders, reduce risk, and deliver measurable progress at every phase."
           align="center"
         />
 
-        <div className="mt-14 grid gap-6 lg:grid-cols-4">
-          {phases.map((phase, index) => (
-            <Reveal key={phase.step} delay={index * 90}>
-              <article className="panel relative h-full p-6 sm:p-7">
-                <span className="absolute right-6 top-6 text-xs font-semibold uppercase tracking-[0.24em] text-slate-300">
-                  {phase.step}
-                </span>
-                <div className="mt-10 flex size-12 items-center justify-center rounded-full bg-slate-950 text-sm font-semibold text-white">
-                  {phase.step}
-                </div>
-                <h3 className="mt-6 text-2xl font-semibold text-slate-950">{phase.title}</h3>
-                <p className="mt-3 text-sm leading-7 text-slate-600 sm:text-base">{phase.description}</p>
-              </article>
-            </Reveal>
+        <StaggerContainer className="mt-16 grid gap-6 md:grid-cols-2 xl:grid-cols-3" staggerDelay={0.15}>
+          {processSteps.map((step) => (
+            <StaggerItem key={step.phase} className="h-full">
+              <li className="premium-card h-full flex flex-col group p-8">
+                <p className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.2em] text-brand-600 mb-6">
+                  <span className="h-px w-6 bg-brand-600/50" />
+                  Phase {step.phase}
+                </p>
+                <h3 className="text-xl font-bold tracking-tight text-corporate-900 group-hover:text-brand-600 transition-colors">{step.title}</h3>
+                <p className="mt-4 text-base leading-relaxed text-corporate-600 flex-grow">{step.description}</p>
+              </li>
+            </StaggerItem>
           ))}
-        </div>
+        </StaggerContainer>
       </div>
     </section>
   );

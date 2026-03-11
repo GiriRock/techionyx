@@ -1,88 +1,86 @@
-import { ArrowUpRight, Linkedin, Mail } from 'lucide-react';
+import { ArrowUpRight, Linkedin, Mail, Phone } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
-const footerLinks = {
-  company: [
-    { name: 'About', href: '#about' },
-    { name: 'Services', href: '#services' },
-    { name: 'Process', href: '#process' },
-  ],
-  expertise: [
-    { name: 'Frontend systems', href: '#expertise' },
-    { name: 'Cloud backends', href: '#expertise' },
-    { name: 'Integrations', href: '#expertise' },
-  ],
-  contact: [
-    { name: 'hello@techionyx.com', href: 'mailto:hello@techionyx.com' },
-    { name: 'Book a discovery call', href: '#contact' },
-  ],
-};
+import { footerLinks } from '@/content/home';
+import { ScrollReveal } from '@/components/ui/ScrollReveal';
 
 const Footer = () => {
   return (
-    <footer className="bg-[#040b16] text-slate-300">
-      <div className="shell py-12 sm:py-16">
-        <div className="grid gap-10 border-b border-white/10 pb-10 lg:grid-cols-[1.1fr_0.6fr_0.6fr_0.7fr]">
-          <div>
-            <a href="#home" className="focus-ring inline-flex items-center gap-3 rounded-full">
-              <span className="flex size-11 items-center justify-center rounded-full bg-gradient-to-br from-sky-400 via-sky-500 to-cyan-300 text-base font-bold text-white shadow-[0_12px_30px_rgba(14,165,233,0.38)]">
-                Tx
-              </span>
-              <span>
-                <span className="block text-lg font-semibold text-white">Techionyx</span>
-                <span className="block text-sm text-slate-400">Enterprise software studio</span>
-              </span>
-            </a>
+    <footer className="relative overflow-hidden bg-corporate-950 text-corporate-300">
+      <div className="absolute inset-0 grid-bg-dark opacity-30" aria-hidden="true" />
+      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
 
-            <p className="mt-6 max-w-md text-sm leading-7 text-slate-400">
-              Secure, scalable product engineering for organizations building customer experiences, internal systems, and the integrations that connect them.
-            </p>
+      <div className="shell relative py-16 sm:py-24">
+        <ScrollReveal once>
+          <div className="grid gap-12 border-b border-white/10 pb-12 xl:grid-cols-[1.5fr_0.8fr_0.8fr_0.8fr]">
+            <div className="max-w-md">
+              <Link to="/" className="focus-ring inline-flex items-center gap-4 rounded-xl">
+                <span className="flex size-12 items-center justify-center rounded-xl bg-brand-600 text-lg font-bold text-white shadow-premium">
+                  Tx
+                </span>
+                <span>
+                  <span className="block text-xl font-bold tracking-tight text-white">Techionyx</span>
+                  <span className="block text-sm font-medium text-corporate-400">Enterprise Technology Partner</span>
+                </span>
+              </Link>
 
-            <div className="mt-6 flex flex-wrap gap-3">
-              <a
-                href="mailto:hello@techionyx.com"
-                className="focus-ring inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm text-slate-200 transition hover:bg-white/10"
-              >
-                <Mail className="size-4" />
-                hello@techionyx.com
-              </a>
-              <a
-                href="#contact"
-                className="focus-ring inline-flex items-center gap-2 rounded-full border border-sky-400/25 bg-sky-400/10 px-4 py-2 text-sm text-sky-200 transition hover:bg-sky-400/20"
-              >
-                Start a conversation
-                <ArrowUpRight className="size-4" />
+              <p className="mt-6 text-base leading-relaxed text-corporate-400">
+                We design and deliver enterprise technology across products, software engineering services, industry solutions, and digital transformation consulting.
+              </p>
+
+              <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+                <a href="mailto:hello@techionyx.com" className="focus-ring inline-flex items-center gap-3 rounded-xl border border-white/10 bg-white/5 px-5 py-2.5 text-sm font-medium text-corporate-200 transition-all hover:bg-white/10 hover:text-white">
+                  <Mail className="size-4 text-brand-400" />
+                  hello@techionyx.com
+                </a>
+                <a href="tel:+14155550142" className="focus-ring inline-flex items-center gap-3 rounded-xl border border-white/10 bg-white/5 px-5 py-2.5 text-sm font-medium text-corporate-200 transition-all hover:bg-white/10 hover:text-white">
+                  <Phone className="size-4 text-brand-400" />
+                  +1 (415) 555-0142
+                </a>
+              </div>
+            </div>
+
+            {Object.entries(footerLinks).map(([group, links]) => (
+              <div key={group}>
+                <h3 className="text-sm font-bold uppercase tracking-wider text-white">{group}</h3>
+                <ul className="mt-6 space-y-4">
+                  {links.map((item) => (
+                    <li key={item.label}>
+                      {item.to.startsWith('http') ? (
+                        <a className="focus-ring group inline-flex items-center gap-2 text-sm text-corporate-400 transition-colors hover:text-brand-400" href={item.to}>
+                          {item.label}
+                          <ArrowUpRight className="size-3.5 opacity-50 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:opacity-100" />
+                        </a>
+                      ) : item.to.startsWith('mailto:') || item.to.startsWith('tel:') ? (
+                        <a className="focus-ring text-sm text-corporate-400 transition-colors hover:text-brand-400" href={item.to}>
+                          {item.label}
+                        </a>
+                      ) : (
+                        <Link className="focus-ring text-sm text-corporate-400 transition-colors hover:text-brand-400" to={item.to}>
+                          {item.label}
+                        </Link>
+                      )}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </ScrollReveal>
+
+        <ScrollReveal delay={0.2} once>
+          <div className="flex flex-col gap-6 pt-8 text-sm text-corporate-500 md:flex-row md:items-center md:justify-between">
+            <p>© {new Date().getFullYear()} Techionyx. Built for measurable enterprise outcomes.</p>
+            <div className="flex flex-wrap gap-4">
+              <Link to="/privacy" className="hover:text-white transition-colors">Privacy Policy</Link>
+              <Link to="/terms" className="hover:text-white transition-colors">Terms of Service</Link>
+              <a href="https://www.linkedin.com" className="focus-ring inline-flex items-center gap-2 transition hover:text-brand-400">
+                <Linkedin className="size-4" />
+                LinkedIn
               </a>
             </div>
           </div>
-
-          {Object.entries(footerLinks).map(([group, links]) => (
-            <div key={group}>
-              <h3 className="text-sm font-semibold uppercase tracking-[0.22em] text-slate-500">{group}</h3>
-              <ul className="mt-5 space-y-3">
-                {links.map((link) => (
-                  <li key={link.name}>
-                    <a className="focus-ring text-sm text-slate-300 transition hover:text-white" href={link.href}>
-                      {link.name}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
-        </div>
-
-        <div className="flex flex-col gap-4 pt-6 text-sm text-slate-500 md:flex-row md:items-center md:justify-between">
-          <p>&copy; {new Date().getFullYear()} Techionyx. Crafted for serious digital delivery.</p>
-          <div className="flex items-center gap-5">
-            <a href="#results" className="focus-ring transition hover:text-white">
-              Client outcomes
-            </a>
-            <a href="https://www.linkedin.com" className="focus-ring inline-flex items-center gap-2 transition hover:text-white">
-              <Linkedin className="size-4" />
-              LinkedIn
-            </a>
-          </div>
-        </div>
+        </ScrollReveal>
       </div>
     </footer>
   );

@@ -1,28 +1,91 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
-import { Button } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
 import { Menu, X } from 'lucide-react';
+import { Link, NavLink, useLocation } from 'react-router-dom';
 
-const navigationLinks = [
-  { name: 'About', href: '#about' },
-  { name: 'Services', href: '#services' },
-  { name: 'Process', href: '#process' },
-  { name: 'Expertise', href: '#expertise' },
-  { name: 'Results', href: '#results' },
-  { name: 'Contact', href: '#contact' },
+import { headerNav } from '@/content/home';
+
+const quickLinks = [
+  { label: 'Why us', to: '/#why-us' },
+  { label: 'Process', to: '/#process' },
+  { label: 'Expertise', to: '/#expertise' },
 ];
 
 const Navigation = () => {
-  const [isScrolled, setIsScrolled] = useState(false);
+  const location = useLocation();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [activeHash, setActiveHash] = useState('');
+  const lastScrollY = useRef(0);
+  const [isHidden, setIsHidden] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 20);
-    handleScroll();
+    const onScroll = () => {
+      const current = window.scrollY;
+      setIsScrolled(current > 20);
 
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+      if (current < 80) {
+        setIsHidden(false);
+      } else if (current > lastScrollY.current && current > 180 && !isMobileMenuOpen) {
+        setIsHidden(true);
+      } else {
+        setIsHidden(false);
+      }
+
+      lastScrollY.current = current;
+    };
+
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, [isMobileMenuOpen]);
+
+  useEffect(() => {
+    if (location.pathname !== '/') {
+      setActiveHash('');
+      return;
+    }
+
+    const sectionIds = quickLinks.map((item) => item.to.split('#')[1]).filter(Boolean) as string[];
+    const sections = sectionIds.map((id) => document.getElementById(id)).filter(Boolean) as HTMLElement[];
+
+    if (sections.length === 0) {
+      setActiveHash(location.hash || '');
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+
+        if (visible[0]?.target.id) {
+          setActiveHash(`#${visible[0].target.id}`);
+        }
+      },
+      { rootMargin: '-42% 0px -45% 0px', threshold: [0.2, 0.4, 0.7] }
+    );
+
+    sections.forEach((section) => observer.observe(section));
+
+    return () => observer.disconnect();
+  }, [location.hash, location.pathname]);
+
+  const isQuickLinkActive = (to: string) => {
+    const hash = to.includes('#') ? `#${to.split('#')[1]}` : '';
+
+    if (location.pathname !== '/') {
+      return location.pathname + location.hash === to;
+    }
+
+    if (hash) {
+      return activeHash === hash || (!activeHash && location.hash === hash);
+    }
+
+    return false;
+  };
 
   useEffect(() => {
     document.body.style.overflow = isMobileMenuOpen ? 'hidden' : '';
@@ -32,102 +95,117 @@ const Navigation = () => {
   }, [isMobileMenuOpen]);
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 px-3 pt-3 sm:px-5 sm:pt-5">
+    <header className={cn('fixed inset-x-0 top-0 z-50 px-4 pt-4 transition-transform duration-500 sm:px-6 sm:pt-6 lg:px-8 lg:pt-8', isHidden ? '-translate-y-[130%]' : '')}>
       <nav
-        className={`mx-auto flex max-w-7xl items-center justify-between rounded-full border px-4 py-3 transition-all duration-300 sm:px-6 ${
-          isScrolled
-            ? 'border-white/70 bg-white/88 shadow-[0_18px_50px_rgba(15,23,42,0.12)] backdrop-blur-xl'
-            : 'border-white/15 bg-slate-950/30 backdrop-blur-md'
-        }`}
+        className={cn(
+          'mx-auto flex max-w-[1400px] items-center justify-between rounded-[2rem] px-5 py-4 transition-all duration-500 sm:px-8',
+          isScrolled ? 'border border-corporate-200/50 bg-white/80 shadow-premium backdrop-blur-xl' : 'border border-transparent bg-transparent'
+        )}
         aria-label="Primary"
       >
-        <a href="#home" className="focus-ring flex items-center gap-3 rounded-full">
-          <span className="flex size-11 items-center justify-center rounded-full bg-gradient-to-br from-sky-400 via-sky-500 to-cyan-300 text-base font-bold text-white shadow-[0_12px_30px_rgba(14,165,233,0.38)]">
+        <Link to="/" className="focus-ring flex items-center gap-4 rounded-xl">
+          <span className={cn(
+            "flex size-11 items-center justify-center rounded-xl font-bold text-white shadow-premium transition-all duration-300",
+            isScrolled ? "bg-brand-600" : "bg-white/10 backdrop-blur-md border border-white/20"
+          )}>
             Tx
           </span>
-          <span>
-            <span className={`block text-sm font-semibold ${isScrolled ? 'text-slate-950' : 'text-white'}`}>
-              Techionyx
-            </span>
-            <span className={`block text-xs ${isScrolled ? 'text-slate-500' : 'text-slate-300'}`}>
-              Software Studio
-            </span>
+          <span className="hidden sm:block">
+            <span className={cn('block text-base font-bold tracking-tight', isScrolled ? 'text-corporate-900' : 'text-white')}>Techionyx</span>
+            <span className={cn('block text-xs font-medium', isScrolled ? 'text-corporate-500' : 'text-corporate-100/80')}>Enterprise Solutions</span>
           </span>
-        </a>
+        </Link>
 
-        <div className="hidden items-center gap-8 lg:flex">
-          {navigationLinks.map((link) => (
-            <a
-              key={link.name}
-              href={link.href}
-              className={`focus-ring text-sm font-medium transition-colors ${
-                isScrolled ? 'text-slate-600 hover:text-sky-600' : 'text-slate-200 hover:text-white'
-              }`}
+        <div className="hidden items-center gap-1 xl:flex">
+          {headerNav.map((item) => (
+            <NavLink
+              key={item.label}
+              to={item.to}
+              className={({ isActive }) =>
+                cn(
+                  'focus-ring rounded-full px-4 py-2 text-sm font-semibold transition-all duration-300',
+                  isActive
+                    ? isScrolled
+                      ? 'bg-corporate-900 text-white shadow-md'
+                      : 'bg-white/20 text-white backdrop-blur-md'
+                    : isScrolled
+                      ? 'text-corporate-600 hover:bg-corporate-50 hover:text-corporate-900'
+                      : 'text-corporate-100 hover:bg-white/10 hover:text-white'
+                )
+              }
             >
-              {link.name}
-            </a>
+              {item.label}
+            </NavLink>
           ))}
+          <div className="ml-3 flex items-center gap-1 border-l border-corporate-200/20 pl-3">
+            {quickLinks.map((item) => (
+              <Link
+                key={item.label}
+                to={item.to}
+                className={cn(
+                  'focus-ring rounded-full px-4 py-2 text-sm font-semibold transition-all duration-300',
+                  isQuickLinkActive(item.to)
+                    ? isScrolled
+                      ? 'bg-brand-50 text-brand-700'
+                      : 'bg-white/15 text-white'
+                    : isScrolled
+                      ? 'text-corporate-600 hover:bg-corporate-50 hover:text-corporate-900'
+                      : 'text-corporate-200 hover:bg-white/10 hover:text-white'
+                )}
+              >
+                {item.label}
+              </Link>
+            ))}
+          </div>
         </div>
 
-        <div className="hidden items-center gap-3 lg:flex">
-          <a
-            href="mailto:hello@techionyx.com"
-            className={`focus-ring text-sm font-medium transition-colors ${
-              isScrolled ? 'text-slate-600 hover:text-slate-950' : 'text-slate-200 hover:text-white'
-            }`}
-          >
+        <div className="hidden items-center gap-4 xl:flex">
+          <a href="mailto:hello@techionyx.com" className={cn('focus-ring text-sm font-semibold transition-colors duration-300', isScrolled ? 'text-corporate-600 hover:text-corporate-900' : 'text-corporate-200 hover:text-white')}>
             hello@techionyx.com
           </a>
-          <Button
-            asChild
-            className="rounded-full bg-slate-950 px-5 text-white shadow-[0_16px_40px_rgba(15,23,42,0.24)] hover:-translate-y-0.5 hover:bg-slate-900"
-          >
-            <a href="#contact">Book a discovery call</a>
-          </Button>
+          <Link to="/contact" className={cn(
+            "focus-ring rounded-xl px-6 py-2.5 text-sm font-bold transition-all duration-300",
+            isScrolled ? "bg-corporate-900 text-white hover:bg-corporate-800 shadow-premium hover:shadow-premium-lg hover:-translate-y-0.5" : "bg-white text-corporate-900 hover:bg-corporate-50 shadow-premium"
+          )}>
+            Let's Talk
+          </Link>
         </div>
 
         <button
           type="button"
-          className={`focus-ring inline-flex size-11 items-center justify-center rounded-full border lg:hidden ${
-            isScrolled ? 'border-slate-200 bg-white text-slate-950' : 'border-white/20 bg-white/10 text-white'
-          }`}
-          aria-expanded={isMobileMenuOpen}
+          className={cn('focus-ring inline-flex size-12 items-center justify-center rounded-xl border xl:hidden transition-all duration-300', isScrolled ? 'border-corporate-200 bg-white text-corporate-900 shadow-sm' : 'border-white/20 bg-white/10 text-white backdrop-blur-md')}
           aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
-          onClick={() => setIsMobileMenuOpen((open) => !open)}
+          aria-expanded={isMobileMenuOpen}
+          aria-controls="mobile-navigation"
+          onClick={() => setIsMobileMenuOpen((state) => !state)}
         >
-          {isMobileMenuOpen ? <X className="size-5" /> : <Menu className="size-5" />}
+          {isMobileMenuOpen ? <X className="size-6" /> : <Menu className="size-6" />}
         </button>
       </nav>
 
-      <div
-        className={`overflow-hidden transition-[max-height,opacity,margin] duration-300 lg:hidden ${
-          isMobileMenuOpen ? 'mt-3 max-h-[480px] opacity-100' : 'max-h-0 opacity-0'
-        }`}
-      >
-        <div className="mx-auto max-w-7xl rounded-[28px] border border-white/10 bg-slate-950/94 p-5 text-white shadow-[0_30px_100px_rgba(2,6,23,0.38)] backdrop-blur-2xl">
-          <div className="flex flex-col gap-4">
-            {navigationLinks.map((link) => (
-              <a
-                key={link.name}
-                href={link.href}
-                className="focus-ring rounded-2xl border border-white/10 px-4 py-3 text-sm font-medium text-slate-200 transition hover:border-sky-400/40 hover:bg-white/5 hover:text-white"
+      <div className={cn('overflow-hidden transition-[max-height,opacity,margin] duration-500 xl:hidden', isMobileMenuOpen ? 'mt-4 max-h-[800px] opacity-100' : 'max-h-0 opacity-0')}>
+        <div
+          id="mobile-navigation"
+          className="mx-auto max-w-7xl rounded-3xl border border-corporate-800 bg-corporate-950/95 p-6 text-white shadow-premium-lg backdrop-blur-2xl"
+        >
+          <div className="grid gap-3">
+            {[...headerNav, ...quickLinks].map((item) => (
+              <Link
+                key={item.label}
+                to={item.to}
+                className="focus-ring rounded-xl border border-white/5 bg-white/5 px-5 py-4 text-base font-semibold text-corporate-200 transition-all hover:border-brand-500/30 hover:bg-white/10 hover:text-white"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
-                {link.name}
-              </a>
+                {item.label}
+              </Link>
             ))}
-            <a
-              href="mailto:hello@techionyx.com"
-              className="focus-ring rounded-2xl border border-white/10 px-4 py-3 text-sm text-slate-300"
+            <Link
+              to="/contact"
+              className="focus-ring mt-4 rounded-xl bg-brand-500 px-5 py-4 text-center text-base font-bold text-white transition-all hover:bg-brand-600 shadow-premium"
               onClick={() => setIsMobileMenuOpen(false)}
             >
-              hello@techionyx.com
-            </a>
-            <Button asChild className="h-12 rounded-2xl bg-sky-500 text-white hover:bg-sky-400">
-              <a href="#contact" onClick={() => setIsMobileMenuOpen(false)}>
-                Book a discovery call
-              </a>
-            </Button>
+              Speak with our team
+            </Link>
           </div>
         </div>
       </div>

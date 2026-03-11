@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -6,34 +6,53 @@
 
 @layer base {
   :root {
-    --background: 215 33% 97%;
-    --foreground: 221 44% 12%;
+    /* Refined Light Mode variables matching a clean modern aesthetic */
+    --background: 210 40% 98%; /* Slate 50 tint */
+    --foreground: 222.2 84% 4.9%;
     --card: 0 0% 100%;
-    --card-foreground: 221 44% 12%;
+    --card-foreground: 222.2 84% 4.9%;
     --popover: 0 0% 100%;
-    --popover-foreground: 221 44% 12%;
-    --primary: 204 88% 53%;
-    --primary-foreground: 0 0% 100%;
-    --secondary: 210 28% 93%;
-    --secondary-foreground: 221 44% 12%;
-    --muted: 216 24% 92%;
-    --muted-foreground: 215 18% 42%;
-    --accent: 191 82% 92%;
-    --accent-foreground: 221 44% 12%;
-    --destructive: 0 84% 60%;
-    --destructive-foreground: 0 0% 100%;
-    --border: 216 27% 88%;
-    --input: 216 27% 88%;
-    --ring: 204 88% 53%;
-    --radius: 1rem;
-    --sidebar-background: 221 52% 11%;
-    --sidebar-foreground: 210 20% 96%;
-    --sidebar-primary: 204 88% 53%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 217 33% 20%;
-    --sidebar-accent-foreground: 210 20% 96%;
-    --sidebar-border: 217 33% 20%;
-    --sidebar-ring: 204 88% 53%;
+    --popover-foreground: 222.2 84% 4.9%;
+    --primary: 173 80% 40%; /* Teal/Cyan brand */
+    --primary-foreground: 210 40% 98%;
+    --secondary: 214 31.8% 91.4%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 173 80% 40%;
+    --radius: 0.75rem;
+    --sidebar-background: 222.2 84% 4.9%; /* Deep corporate dark */
+    --sidebar-foreground: 210 40% 98%;
+    --sidebar-primary: 173 80% 40%;
+    --sidebar-primary-foreground: 210 40% 98%;
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 173 80% 40%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 173 80% 40%;
   }
 
   * {
@@ -45,120 +64,121 @@
   }
 
   body {
-    @apply bg-background text-foreground antialiased;
-    background-image:
-      radial-gradient(circle at top left, rgba(14, 165, 233, 0.12), transparent 30%),
-      radial-gradient(circle at 80% 20%, rgba(56, 189, 248, 0.09), transparent 24%),
-      linear-gradient(180deg, #f8fbff 0%, #f4f7fb 38%, #eef3f9 100%);
-    font-family: 'Plus Jakarta Sans', sans-serif;
+    @apply bg-corporate-50 text-corporate-800 antialiased;
     min-width: 320px;
+    font-family: 'Inter', sans-serif;
   }
 
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    font-family: 'Manrope', sans-serif;
-    letter-spacing: -0.03em;
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Outfit', sans-serif;
+    letter-spacing: -0.025em;
   }
 
   ::selection {
-    background: rgba(14, 165, 233, 0.18);
-    color: #06111f;
+    background: rgba(20, 184, 166, 0.2); /* Brand Teal 500 */
+    color: #020617; /* Corporate 950 */
   }
 }
 
 @layer components {
+  /* Layout Constraints */
   .shell {
-    @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
+    @apply mx-auto w-full max-w-[1400px] px-6 md:px-12 lg:px-16;
   }
 
   .section-padding {
-    @apply py-20 md:py-28 lg:py-32;
+    @apply py-24 md:py-32 lg:py-40;
   }
 
+  /* Typography Standardized */
   .section-eyebrow {
-    @apply inline-flex items-center gap-2 rounded-full border border-white/10 bg-slate-950/70 px-4 py-2 text-xs font-semibold uppercase tracking-[0.24em] text-sky-200/90 shadow-[0_10px_30px_rgba(2,6,23,0.2)];
+    @apply mb-4 inline-flex items-center rounded-full bg-brand-50 px-4 py-1.5 text-sm font-semibold text-brand-700 tracking-[0.15em] uppercase border border-brand-100;
   }
-
-  .section-eyebrow-light {
-    @apply inline-flex items-center gap-2 rounded-full border border-sky-200/70 bg-white/80 px-4 py-2 text-xs font-semibold uppercase tracking-[0.24em] text-sky-700 shadow-[0_16px_40px_rgba(15,23,42,0.06)];
+  
+  .section-eyebrow-dark {
+    @apply mb-4 inline-flex items-center rounded-full bg-white/10 px-4 py-1.5 text-sm font-semibold text-brand-200 tracking-[0.15em] uppercase border border-white/20 backdrop-blur-md;
   }
 
   .section-title {
-    @apply text-balance text-3xl font-semibold leading-tight text-slate-950 md:text-4xl lg:text-5xl;
+    @apply text-balance text-4xl font-semibold leading-tight tracking-tight text-corporate-900 md:text-5xl lg:text-6xl;
   }
-
+  
   .section-title-dark {
-    @apply text-balance text-3xl font-semibold leading-tight text-white md:text-4xl lg:text-5xl;
+    @apply text-balance text-4xl font-semibold leading-tight tracking-tight text-white md:text-5xl lg:text-6xl;
   }
 
   .section-copy {
-    @apply max-w-2xl text-base leading-7 text-slate-600 md:text-lg;
+    @apply text-lg leading-relaxed text-corporate-600 md:text-xl md:leading-relaxed max-w-3xl;
+  }
+  
+  .section-copy-dark {
+    @apply text-lg leading-relaxed text-slate-300 md:text-xl md:leading-relaxed max-w-3xl;
   }
 
-  .panel {
-    @apply rounded-[28px] border border-white/70 bg-white/80 shadow-[0_24px_80px_rgba(15,23,42,0.08)] backdrop-blur-xl;
+  /* B2B Premium Cards */
+  .premium-card {
+    @apply relative overflow-hidden rounded-2xl border border-corporate-200 bg-white p-8 shadow-premium transition-all duration-300 hover:-translate-y-1 hover:shadow-premium-lg hover:border-corporate-300;
+  }
+  
+  .premium-card-dark {
+    @apply relative overflow-hidden rounded-2xl border border-white/10 bg-corporate-900 p-8 shadow-premium transition-all duration-300 hover:-translate-y-1 hover:border-brand-500/30 hover:bg-corporate-900/90;
   }
 
-  .panel-dark {
-    @apply rounded-[28px] border border-white/10 bg-slate-950/70 shadow-[0_30px_100px_rgba(2,6,23,0.35)] backdrop-blur-xl;
+  .glass-panel {
+    @apply rounded-[2rem] border border-white/40 bg-white/60 shadow-premium backdrop-blur-2xl;
   }
 
-  .grid-overlay {
-    background-image:
-      linear-gradient(rgba(148, 163, 184, 0.12) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(148, 163, 184, 0.12) 1px, transparent 1px);
-    background-size: 84px 84px;
+  .glass-panel-dark {
+    @apply rounded-[2rem] border border-white/10 bg-corporate-950/60 shadow-premium backdrop-blur-2xl;
+  }
+
+  /* Interactive Elements */
+  .btn-primary {
+    @apply inline-flex items-center justify-center rounded-lg bg-brand-500 px-6 py-3 text-sm font-semibold text-white shadow-premium transition-all duration-300 hover:bg-brand-600 hover:shadow-premium-glow focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2;
+  }
+  
+  .btn-secondary {
+    @apply inline-flex items-center justify-center rounded-lg border border-corporate-200 bg-white px-6 py-3 text-sm font-medium text-corporate-900 shadow-sm transition-all duration-300 hover:border-corporate-300 hover:bg-corporate-50 focus:outline-none focus:ring-2 focus:ring-corporate-500 focus:ring-offset-2;
+  }
+  
+  .btn-secondary-dark {
+    @apply inline-flex items-center justify-center rounded-lg border border-white/20 bg-transparent px-6 py-3 text-sm font-medium text-white shadow-sm transition-all hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-white/50 focus:ring-offset-2 focus:ring-offset-corporate-950;
+  }
+
+  /* Background Utilities */
+  .b2b-gradient-dark {
+    @apply bg-gradient-to-br from-corporate-950 via-corporate-900 to-corporate-800;
+  }
+  
+  .b2b-gradient-light {
+    @apply bg-gradient-to-br from-corporate-50 via-white to-brand-50;
   }
 
   .hero-glow {
     position: absolute;
-    inset: auto;
-    border-radius: 999px;
-    filter: blur(64px);
-    opacity: 0.8;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(20, 184, 166, 0.15) 0%, rgba(20, 184, 166, 0) 70%);
+    border-radius: 50%;
+    filter: blur(60px);
+    z-index: 0;
     pointer-events: none;
   }
 
-  .reveal {
-    opacity: 0;
-    transform: translate3d(0, 26px, 0);
-    transition: opacity 700ms cubic-bezier(0.16, 1, 0.3, 1), transform 700ms cubic-bezier(0.16, 1, 0.3, 1);
-    will-change: transform, opacity;
+  .grid-bg-dark {
+    background-size: 40px 40px;
+    background-image: linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
   }
-
-  .reveal[data-direction='left'] {
-    transform: translate3d(-28px, 0, 0);
-  }
-
-  .reveal[data-direction='right'] {
-    transform: translate3d(28px, 0, 0);
-  }
-
-  .reveal.is-visible {
-    opacity: 1;
-    transform: translate3d(0, 0, 0);
-  }
-
-  .text-gradient {
-    background: linear-gradient(135deg, #f8fbff 0%, #7dd3fc 34%, #38bdf8 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-  }
-
-  .text-gradient-dark {
-    background: linear-gradient(135deg, #0f172a 0%, #0f766e 42%, #0ea5e9 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
+  
+  .grid-bg-light {
+    background-size: 40px 40px;
+    background-image: linear-gradient(to right, rgba(15, 23, 42, 0.03) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(15, 23, 42, 0.03) 1px, transparent 1px);
   }
 
   .focus-ring {
-    @apply outline-none focus-visible:ring-2 focus-visible:ring-sky-500/70 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent;
+    @apply outline-none focus-visible:ring-2 focus-visible:ring-brand-500/70 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent;
   }
 }
 
@@ -166,54 +186,10 @@
   .text-balance {
     text-wrap: balance;
   }
-}
-
-@keyframes float {
-  0%,
-  100% {
-    transform: translate3d(0, 0, 0);
-  }
-  50% {
-    transform: translate3d(0, -12px, 0);
-  }
-}
-
-@keyframes pulse-soft {
-  0%,
-  100% {
-    opacity: 0.7;
-  }
-  50% {
-    opacity: 1;
-  }
-}
-
-.animate-float {
-  animation: float 9s ease-in-out infinite;
-}
-
-.animate-pulse-soft {
-  animation: pulse-soft 4s ease-in-out infinite;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
-
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
-  }
-
-  .reveal,
-  .reveal[data-direction='left'],
-  .reveal[data-direction='right'] {
-    opacity: 1;
-    transform: none;
+  .glass {
+    background: rgba(255, 255, 255, 0.7);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
   }
 }
