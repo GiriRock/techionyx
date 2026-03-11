@@ -48,32 +48,32 @@ module.exports = {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
-        // Premium corporate palette
+        // Premium corporate monochrome palette
         brand: {
-          50: '#f0fdfa',
-          100: '#ccfbf1',
-          200: '#99f6e4',
-          300: '#5eead4',
-          400: '#2dd4bf',
-          500: '#14b8a6', // primary teal
-          600: '#0d9488',
-          700: '#0f766e',
-          800: '#115e59', // deeply saturated for text
-          900: '#134e4a',
-          950: '#042f2e',
+          50: '#F8F9FA',
+          100: '#F1F3F5',
+          200: '#E9ECEF',
+          300: '#DEE2E6',
+          400: '#CED4DA',
+          500: '#BBC2CC', // Glossy Silver hover/highlight
+          600: '#ADB5BD',
+          700: '#868E96',
+          800: '#495057',
+          900: '#343A40',
+          950: '#212529',
         },
         corporate: {
-          50: '#f8fafc',
-          100: '#f1f5f9',
-          200: '#e2e8f0',
-          300: '#cbd5e1',
-          400: '#94a3b8',
-          500: '#64748b',
-          600: '#475569',
-          700: '#334155',
-          800: '#1e293b', // primary dark text & backgrounds
-          900: '#0f172a',
-          950: '#020617', // ultra deep for footer/hero
+          50: '#FFFFFF',
+          100: '#F5F5F5',
+          200: '#EDEDED', // Core White text/background
+          300: '#E0E0E0',
+          400: '#BDBDBD',
+          500: '#9E9E9E',
+          600: '#757575',
+          700: '#424242',
+          800: '#212121', // Secondary dark
+          900: '#111111',
+          950: '#000000', // Pure Black primary background
         }
       },
       borderRadius: {
@@ -85,10 +85,10 @@ module.exports = {
       },
       boxShadow: {
         xs: "0 1px 2px 0 rgb(0 0 0 / 0.05)",
-        'premium-sm': "0 2px 8px -2px rgba(15, 23, 42, 0.05)",
-        'premium': "0 8px 24px -4px rgba(15, 23, 42, 0.05)",
-        'premium-lg': "0 12px 32px -6px rgba(15, 23, 42, 0.08)",
-        'premium-glow': "0 0 40px -10px rgba(20, 184, 166, 0.3)",
+        'premium-sm': "0 2px 8px -2px rgba(0, 0, 0, 0.4)",
+        'premium': "0 8px 24px -4px rgba(0, 0, 0, 0.5)",
+        'premium-lg': "0 12px 32px -6px rgba(0, 0, 0, 0.7)",
+        'premium-glow': "0 0 40px -10px rgba(187, 194, 204, 0.3)", // Glossy silver glow
       },
       keyframes: {
         "accordion-down": {
